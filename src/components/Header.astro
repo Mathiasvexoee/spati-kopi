@@ -1,0 +1,92 @@
+---
+
+---
+
+<header class="header">
+  <div>
+    <a href="/"><img src="/img/englelogo.png" alt="Logo" /></a>
+  </div>
+  <nav class="nav">
+    <ul>
+      <li><a class="shake-on-hover" href="/sortiment">vores udvalg</a></li>
+      <li><a class="shake-on-hover" href="/events">events</a></li>
+    </ul>
+  </nav>
+</header>
+<script>
+  const header = document.querySelector(".header") as HTMLElement;
+  const hero = document.querySelector(".hero");
+  if (hero) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          header.style.setProperty("--hover-color", "#fff");
+        } else {
+          header.style.setProperty("--hover-color", "var(--color-green)");
+        }
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(hero);
+  }
+</script>
+<style>
+  .header {
+    display: flex;
+    align-items: top;
+    padding-top: 1em;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: transparent;
+  }
+  img {
+    max-width: 9vw;
+    height: auto;
+    margin-left: 20px;
+  }
+  .nav {
+    display: flex;
+    gap: 120px;
+    margin-right: 60px;
+    padding-top: 0.5em;
+  }
+  .nav a {
+    text-decoration: none;
+    color: #000;
+    font-size: clamp(1rem, 3vw, 2rem);
+  }
+  .nav ul {
+    display: flex;
+    list-style: none;
+    gap: 10vw;
+  }
+  .nav a:hover {
+    color: var(--hover-color, var(--color-green));
+    transition: 0.3s;
+    display: inline-block;
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-1px);
+    }
+    40%,
+    80% {
+      transform: translateX(1px);
+    }
+  }
+  .shake-on-hover:hover {
+    animation: shake 0.4s ease;
+  }
+  @media screen and (max-width: 768px) {
+    .nav ul {
+      gap: 7vw;
+    }
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  text: string;
+  image: string;
+  dato?: string;
+  tid?: string;
+  type?: string;
+  href?: string;
+}
+
+const { title, text, image, dato, href } = Astro.props;
+---
+
+<article class="event-card">
+  <div class="billede-wrapper">
+    <img src={image} alt={title} />
+    <img src={image} alt={title} class="ekstra-billede" />
+    <img src={image} alt={title} class="ekstra-billede" />
+  </div>
+  <div class="event-info">
+    <h3>{title}</h3>
+    {dato && <h4>{dato}</h4>}
+    <Button label="se mere" size="small" href={href} />
+  </div>
+  <p>{text}</p>
+</article>
+
+<style>
+  .event-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .billede-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .billede-wrapper img {
+    max-width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .billede-wrapper img:first-child {
+    border-radius: 16px;
+  }
+
+  .ekstra-billede {
+    display: none !important;
+  }
+
+  .event-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .event-card {
+      width: 75%;
+      max-width: 300px;
+      margin: 0 auto;
+      align-items: center;
+      text-align: center;
+    }
+
+    .event-info {
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .billede-wrapper {
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .billede-wrapper {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .billede-wrapper img:first-child {
+      border-radius: 16px 0 0 16px;
+    }
+
+    .billede-wrapper img:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+
+    .billede-wrapper img:last-child {
+      border-radius: 0 16px 16px 0;
+    }
+
+    .ekstra-billede {
+      display: block !important;
+    }
+  }
+</style>

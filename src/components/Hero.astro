@@ -1,0 +1,134 @@
+---
+interface Props {
+  text?: string;
+  image?: string;
+  imageAlt?: string;
+}
+const {
+  text = "NØRREBRO SPÄTI",
+  image = "/img/englelogo.png",
+  imageAlt = "Kiosk",
+} = Astro.props;
+const rows = Array.from({ length: 17 });
+---
+
+<section class="hero">
+  <div class="hero-rows" aria-hidden="true">
+    {rows.map(() => <div class="hero-row">{text}</div>)}
+  </div>
+
+  <div class="hero-logo">
+    <img src={image} alt={imageAlt} class="kiosk-logo" />
+  </div>
+
+  <div class="hero-address">
+    <span>vedbækgade 4</span>
+    <span>2200 københavn n</span>
+  </div>
+</section>
+
+<script>
+  const section = document.querySelector<HTMLElement>(".hero")!;
+  const allRows = Array.from(
+    document.querySelectorAll<HTMLElement>(".hero-row"),
+  );
+
+  const STEP = 160;
+  const HOLD = 2200;
+  const PAUSE = 600;
+
+  const sleep = (ms: number) => new Promise<void>((res) => setTimeout(res, ms));
+
+  const MAX_ROWS = 17;
+
+  function visibleRows(): HTMLElement[] {
+    const h = section.clientHeight;
+    return allRows.filter((r) => r.offsetTop < h).slice(0, MAX_ROWS);
+  }
+
+  async function heroLoop() {
+    while (true) {
+      const rows = visibleRows();
+      for (const row of rows) {
+        row.classList.add("visible");
+        await sleep(STEP);
+      }
+      await sleep(HOLD);
+      allRows.forEach((r) => r.classList.remove("visible"));
+      await sleep(PAUSE);
+    }
+  }
+
+  heroLoop();
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100svh;
+    background-color: var(--color-pink);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: -160px;
+    padding-top: 160px;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      height: 60svh;
+    }
+  }
+
+  .hero-rows {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1em;
+  }
+
+  .hero-row {
+    font-family: "cooper-black-std", serif;
+    font-size: clamp(1rem, 7vw, 6rem);
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    opacity: 0;
+  }
+
+  .hero-row.visible {
+    opacity: 1;
+  }
+
+  .hero-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .kiosk-logo {
+    width: clamp(200px, 45vw, 500px);
+    height: auto;
+    display: block;
+  }
+
+  .hero-address {
+    position: absolute;
+    bottom: 1.2rem;
+    inset-inline: 0;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: clamp(1rem, 3vw, 2rem);
+    color: var(--color-text);
+    font-size: clamp(0.9rem, 1.5vw, 1.5rem);
+    font-family: "lacquer", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+</style>

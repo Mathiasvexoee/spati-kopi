@@ -1,0 +1,74 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt?: string;
+  href?: string;
+}
+
+const { title, description, image, imageAlt = "", href = "#" } = Astro.props;
+---
+
+<div class="card">
+  <div class="card-text">
+    <h2 class="card-title">{title}</h2>
+    <h3 class="card-description">{description}</h3>
+  </div>
+  <a href={href}><img class="card-image" src={image} alt={imageAlt} /></a>
+  <div class="card-cta">
+    <Button label="tag mig derhen" href={href} size="large" />
+  </div>
+</div>
+
+<style>
+  .card {
+    border-radius: 16px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .card-image {
+    max-width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    filter: grayscale(100%) contrast(1.2) brightness(0.9);
+    transition: filter 0.1s ease;
+  }
+
+  .card-image:hover {
+    filter: grayscale(0%) contrast(1) brightness(1) blur(0);
+  }
+  .card-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-cta :global(.btn) {
+    width: 100%;
+    text-align: center;
+  }
+
+  @media (min-width: 720px) {
+    .card {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 4;
+      max-width: 800px;
+    }
+  }
+</style>

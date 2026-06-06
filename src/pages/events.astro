@@ -1,0 +1,118 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Layout from "../components/Layout.astro";
+import EventKarrusel from "../components/EventKarrusel.astro";
+
+const options = {
+  headers: {
+    apikey:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqbXpqZXl3em9ubWhyeHBpZG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMzM1NDMsImV4cCI6MjA5MzkwOTU0M30._zazZivT85MElhidAI4pC61XTiWwx7NmS19ru3aUjPo",
+  },
+};
+
+const url =
+  "https://zjmzjeywzonmhrxpidme.supabase.co/rest/v1/event_card?select=*&order=id.asc";
+const response = await fetch(url, options);
+const data = await response.json();
+
+const eventSlides = data.map((event: any) => ({
+  title: event.titel,
+  text: event.teaser,
+  info: event.info,
+  dato: event.dato,
+  tid: event.tid,
+  image: event.billede,
+  type: event.type,
+  href: `/event/${event.id}`,
+}));
+
+const repeatedEvents = eventSlides.filter(
+  (event: any) => event.type === "repeated",
+);
+const specialEvents = eventSlides.filter(
+  (event: any) => event.type === "special",
+);
+---
+
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="stylesheet" href="/style/general.css" />
+    <title>Events</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <Layout title="Events">
+        <Hero text="EVENTS EVENTS" image="/img/dj.png" imageAlt="DJ pult" />
+        <div class="eventintro">
+          <h1>Events</h1>
+          <h2>what happens at späti</h2>
+        </div>
+        <div class="engel-wrapper">
+          <img src="/img/musikengel.svg" alt="Engel der spiller på fløjte" />
+        </div>
+        <div class="eventkarrusel">
+          <EventKarrusel
+            events={repeatedEvents}
+            titel="repeated events"
+            undertitel="Ny uge, samme gode vibe"
+          />
+          <div class="engel-wrapper">
+            <img src="/img/musikengel.svg" alt="Engel der spiller på fløjte" />
+          </div>
+          <EventKarrusel
+            events={specialEvents}
+            titel="special events"
+            undertitel="Events du ikke vil gå glip af"
+          />
+        </div>
+      </Layout>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-text-inverted);
+  }
+  h1,
+  h2 {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .eventkarrusel {
+    width: 100%;
+  }
+
+  .engel-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .engel-wrapper img {
+    width: 200px;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .eventkarrusel {
+    padding: 20px;
+  }
+
+  .eventintro {
+    padding: 5rem 1.5rem 2rem;
+  }
+</style>

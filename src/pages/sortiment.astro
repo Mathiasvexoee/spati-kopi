@@ -1,0 +1,218 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Layout from "../components/Layout.astro";
+---
+
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="stylesheet" href="/style/general.css" />
+    <title>Sortiment</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <Layout title="VORES UDVALG">
+        <Hero
+          text="VORES UDVALG"
+          image="/img/barstole.png"
+          imageAlt="Barstole"
+        />
+      </Layout>
+
+      <section class="sortiment">
+        <div class="sortiment__intro">
+          <h1>Sortiment</h1>
+          <h2>at your fav hang-out spot</h2>
+        </div>
+
+        <div class="sortiment__item sortiment__item--tall">
+          <div class="sortiment__illustration">
+            <img src="/img/kioskbajer.svg" alt="Køleskabet illustration" />
+          </div>
+          <div class="sortiment__content">
+            <h2>køleskabet</h2>
+            <p>
+              Kolde drikke, specialøl, sodavand, energidrikke, juice, cider og
+              alt det man får lyst til at tage med videre ud i byen. Køleskabet
+              er fyldt med både velkendte favoritter og mere niche ting man ikke
+              finder alle steder. Noget til de hurtige stop, noget til de lange
+              aftener og noget til når fortovet foran Späti pludselig bliver til
+              aftenens hangout spot.
+            </p>
+          </div>
+        </div>
+
+        <div class="sortiment__item sortiment__item--flip">
+          <div class="sortiment__illustration vintegning">
+            <img src="/img/pigeiglas.svg" alt="Vinskabet illustration" />
+          </div>
+          <div>
+            <h2>vinskabet</h2>
+            <p>
+              Et udvalg af naturvin, pét-nat, orangevin og andre flasker med
+              masser af personlighed. Vine der er lavet til at blive delt, åbnet
+              spontant og drukket med venner på en onsdag der føles som en
+              fredag. Fra lette og friske flasker til noget lidt mere funky —
+              altid udvalgt med fokus på gode vibes.
+            </p>
+          </div>
+        </div>
+
+        <div class="sortiment__item">
+          <div class="sortiment__illustration">
+            <img src="/img/sardiner.svg" alt="Mad & Snacks illustration" />
+          </div>
+          <div>
+            <h2>mad & snacks</h2>
+            <p>
+              Sandwiches, oliven, snacks og dåsefisk - små ting der fungerer
+              lige så godt til en hurtig bid som til en hel aften foran kiosken.
+              Noget salt, noget sødt og noget man får lyst til når man egentlig
+              bare kom efter en ting. Simpelt, tilfredsstillende og perfekt
+              sammen med noget koldt fra køleskabet.
+            </p>
+          </div>
+        </div>
+
+        <div class="sortiment__item sortiment__item--flip">
+          <div class="sortiment__illustration">
+            <img src="/img/spaticd.svg" alt="Ting og Sager illustration" />
+          </div>
+          <div>
+            <h2>ting og sager</h2>
+            <p>
+              Bøger, vinyler, tøj og posters - små fund og ting man får lyst til
+              at tage med spontant. En hylde hos din yndlingskiosk hvor man kan
+              gå på opdagelse, finde noget nyt at lytte til, noget at læse i
+              parken, noget lækkert at snacke på, eller noget fedt at tage på.
+              Lidt kiosk, lidt pladebutik og generelt bare gode sager.
+            </p>
+          </div>
+        </div>
+
+        <div class="sortiment__cta">
+          <img
+            class="sortiment__cta-img"
+            src="/img/nummi.svg"
+            alt="Kiosk bar illustration"
+          />
+        </div>
+      </section>
+      <Footer />
+    </main>
+  </body>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-text-inverted);
+    }
+
+    .sortiment {
+      background-color: var(--color-text-inverted);
+      color: var(--color-text);
+      box-sizing: border-box;
+    }
+
+    .sortiment__intro {
+      text-align: center;
+      padding: 3rem 1.5rem 0;
+    }
+
+    .sortiment__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      gap: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .sortiment__illustration {
+      display: flex;
+      justify-content: center;
+    }
+
+    .sortiment__illustration img {
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      display: block;
+    }
+
+    .vintegning img {
+      max-width: 100px;
+    }
+    .sortiment__item--tall img {
+      max-width: 150px;
+    }
+
+    .sortiment__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .sortiment__cta-img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      display: block;
+      padding: 50px;
+    }
+
+    @media (min-width: 760px) {
+      .sortiment__intro {
+        padding: 5rem 2rem 1rem;
+      }
+
+      .sortiment__item {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        text-align: left;
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+        gap: 4rem;
+      }
+
+      .sortiment__item--flip .sortiment__illustration {
+        order: 2;
+      }
+      .sortiment__item--flip .sortiment__content {
+        order: 1;
+      }
+
+      .sortiment__illustration img {
+        max-width: 320px;
+      }
+
+      .sortiment__item--tall img {
+        max-width: 320px;
+      }
+
+      .sortiment__cta-heading {
+        font-size: 5.5rem;
+      }
+
+      .sortiment__cta-img {
+        max-width: 700px;
+        padding: 50px;
+      }
+      .vintegning img {
+        max-width: 150px;
+      }
+    }
+  </style>
+</html>
