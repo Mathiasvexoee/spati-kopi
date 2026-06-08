@@ -1,0 +1,133 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Btn from "../components/Button.astro";
+import Polaroid from "../components/Polaroid.astro";
+---
+
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="stylesheet" href="/style/general.css" />
+    <title>Community</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Späti community</h1>
+      <section class="polaroid">
+        <Polaroid billede="/img/billedevaeg1.png" navn="Mathias" />
+        <Polaroid billede="/img/billedevaeg2.png" navn="Julie" />
+        <Polaroid billede="/img/billedevaeg3.png" navn="Baren" />
+        <Polaroid billede="/img/billedevaeg4.png" navn="Live musik" />
+        <Polaroid billede="/img/billedevaeg5.png" navn="Stemningen" />
+        <Polaroid billede="/img/billedevaeg6.png" navn="Bandet" />
+      </section>
+      <h2>Få dit eget billede op på billedevæggen</h2>
+      <form class="form-wrap">
+        <div class="form-card">
+          <h2 class="form-title">Indsend billede</h2>
+          <div class="form-row">
+            <label class="form-label" for="navn">navn:</label>
+            <input class="form-input" type="text" id="navn" name="navn" required />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="fil">vælg fil:</label>
+            <input class="form-input" type="file" id="fil" name="fil" accept="image/*" required />
+          </div>
+          <div class="form-bottom">
+            <Btn label="Indsend" href="#" size="small" />
+            <img src="/img/musikengel.svg" alt="" width="70" />
+          </div>
+        </div>
+      </form>
+    </main>
+    <Footer />
+  </body>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-text-inverted);
+    }
+    .polaroid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+    }
+    .form-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 0;
+    }
+
+    .form-card {
+      background: var(--color-pink);
+      border: 3px solid var(--color-red);
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      width: 340px;
+    }
+
+    .form-title {
+      text-align: center;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      gap: 12px;
+    }
+
+    .form-label {
+      font-family: "lacquer", sans-serif;
+
+      letter-spacing: 1px;
+      color: var(--color-text);
+      min-width: 80px;
+    }
+
+    .form-input {
+      background: var(--color-text-inverted);
+      border: 2px solid var(--color-red);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-family: "roboto", sans-serif;
+      font-size: 1rem;
+      color: var(--color-text);
+      width: 100%;
+    }
+
+    .form-input[type="file"] {
+      padding: 5px 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-green);
+    }
+
+    .form-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+  </style>
+</html>
